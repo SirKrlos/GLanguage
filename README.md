@@ -1,0 +1,2 @@
+# GLanguage
+Language of script
