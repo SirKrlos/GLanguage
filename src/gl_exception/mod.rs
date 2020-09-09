@@ -40,4 +40,8 @@ impl Exception {
 		result.push_str(error_details.as_str());
 		result
 	}
+
+	pub fn illegal_char(&self) {
+		println!("{}", self.generate_exception_string("SyntaxError: Invalid character in identifier".to_string()));
+	}
 }
