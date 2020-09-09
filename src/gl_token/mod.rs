@@ -2,11 +2,11 @@ use crate::gl_token_position::TokenPosition;
 use crate::gl_tokens::Tokens;
 
 pub struct Token {
-	typer: Tokens,
-	filename: String,
-	linetext: String,
-	position_start: TokenPosition,
-	position_end: TokenPosition,
+	pub typer: Tokens,
+	pub filename: String,
+	pub linetext: String,
+	pub position_start: TokenPosition,
+	pub position_end: TokenPosition,
 }
 
 impl Token {
