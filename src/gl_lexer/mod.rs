@@ -27,4 +27,19 @@ impl Lexer {
 		self.position.index += 1;
 		self.position.column += 1;
 	}
+
+	fn advance_char(&mut self) {
+		if self.chars.len() > 0 {
+			self.current_char = self.chars.remove(0).to_string();
+		} else {
+			self.current_char = String::new();
+		}
+
+		if self.current_char == "\n" {
+			self.position.lineno += 1;
+			if self.linestext.len() > 0 {
+				self.current_linetext = self.linestext.remove(0);
+			}
+		}
+	}
 }
