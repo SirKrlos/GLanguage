@@ -44,4 +44,11 @@ impl Exception {
 	pub fn illegal_char(&self) {
 		println!("{}", self.generate_exception_string("SyntaxError: Invalid character in identifier".to_string()));
 	}
+
+	pub fn invalid_syntax(&self, mut details: String) {
+		if details.is_empty() {
+			details = String::from("Invalid syntax");
+		}
+		println!("{}", self.generate_exception_string(format!("SyntaxError: {}", details)));
+	}
 }
