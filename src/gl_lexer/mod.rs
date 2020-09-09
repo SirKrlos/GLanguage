@@ -22,4 +22,9 @@ impl Lexer {
 		let tokens: Vec<Token> = Vec::new();
 		Lexer { filename, codetext, chars, linestext, position, current_char, current_linetext, tokens }
 	}
+
+	fn advance_position(&mut self) {
+		self.position.index += 1;
+		self.position.column += 1;
+	}
 }
