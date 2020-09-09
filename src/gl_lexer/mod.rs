@@ -42,4 +42,9 @@ impl Lexer {
 			}
 		}
 	}
+
+	fn advance(&mut self) {
+		self.advance_position();
+		self.advance_char();
+	}
 }
