@@ -10,7 +10,7 @@ Language of script
 - [ ] Parser
 - [ ] Eval
 - [ ] Env
-- [ ] Exception 
+- [x] Exception 
   - [ ] IllegalChar
   - [ ] InvalidSyntax
   - [ ] ExpectedChar
