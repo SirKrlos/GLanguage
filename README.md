@@ -16,6 +16,6 @@ Language of script
   - [ ] ExpectedChar
   - [ ] RunTime
 - [ ] Token
-- [ ] Tokens
-- [ ] TokenPosition
+- [x] Tokens
+- [x] TokenPosition
 - [ ] Statement
