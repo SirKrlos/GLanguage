@@ -15,7 +15,7 @@ Language of script
   - [ ] InvalidSyntax
   - [ ] ExpectedChar
   - [ ] RunTime
-- [ ] Token
+- [x] Token
 - [x] Tokens
 - [x] TokenPosition
 - [ ] Statement
