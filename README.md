@@ -5,11 +5,11 @@ Language of script
 - [ ] First version alpha
 
 ## Components:
-- [ ] RunTime
-- [ ] Lexer
+- [x] RunTime
+- [x] Lexer
 - [ ] Parser
 - [ ] Eval
-- [ ] Env
+- [x] Env
 - [x] Exception 
   - [x] IllegalChar
   - [x] InvalidSyntax
