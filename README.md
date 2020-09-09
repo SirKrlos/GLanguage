@@ -11,8 +11,8 @@ Language of script
 - [ ] Eval
 - [ ] Env
 - [x] Exception 
-  - [ ] IllegalChar
-  - [ ] InvalidSyntax
+  - [x] IllegalChar
+  - [x] InvalidSyntax
   - [ ] ExpectedChar
   - [ ] RunTime
 - [x] Token
