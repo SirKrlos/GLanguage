@@ -47,4 +47,8 @@ impl Lexer {
 		self.advance_position();
 		self.advance_char();
 	}
+
+	pub fn run(&mut self) -> bool {
+		return false;
+	}
 }
