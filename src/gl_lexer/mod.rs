@@ -63,6 +63,14 @@ impl Lexer {
 		token.illegal_char();
 	}
 
+	pub fn copy_tokens(&self) -> Vec<Token> {
+		let mut tokens: Vec<Token> = Vec::new();
+		for t in self.tokens.iter() {
+			tokens.push(t.copy());
+		}
+		tokens
+	}
+
 	fn make_next_token(&mut self) -> bool {
 		let pos_start: TokenPosition = self.position.copy();
 
