@@ -1,11 +1,13 @@
 use crate::gl_lexer::Lexer;
 use crate::gl_parser::Parser;
 
-pub struct RunTime {}
+pub struct RunTime {
+	lineno: u32,
+}
 
 impl RunTime {
-	pub fn new() -> RunTime {
-		RunTime {}
+	pub fn new(lineno: u32) -> RunTime {
+		RunTime { lineno: lineno }
 	}
 
 	pub fn run_codetext(&mut self, filename: String, codetext: String) -> bool {
