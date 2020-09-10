@@ -4,7 +4,7 @@ use crate::gl_token::Token;
 pub struct Parser {
 	tokens: Vec<Token>,
 	current_tok: Token,
-	asts: Vec<Statement>,
+	pub asts: Vec<Statement>,
 }
 
 impl Parser {
