@@ -44,6 +44,15 @@ impl Lexer {
 		}
 	}
 
+	fn advance_linetext(&mut self) {
+		self.position.lineno += 1;
+		self.position.index = 0;
+		self.position.column = 0;
+		if self.linestext.len() > 0 {
+			self.current_linetext = self.linestext.remove(0);
+		}
+	}
+
 	fn advance(&mut self) {
 		self.advance_position();
 		self.advance_char();
