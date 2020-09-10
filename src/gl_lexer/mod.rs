@@ -67,8 +67,8 @@ impl Lexer {
 
 	fn illegal_char(&mut self) {
 		let pos_start: TokenPosition = self.position.copy();
-		self.advance();
 		let token: Token = self.build_new_token(Tokens::EOF, pos_start);
+		self.advance_linetext();
 		token.illegal_char();
 	}
 
