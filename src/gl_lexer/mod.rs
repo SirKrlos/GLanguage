@@ -1,5 +1,6 @@
 use crate::gl_token::Token;
 use crate::gl_token_position::TokenPosition;
+use crate::gl_tokens::Tokens;
 
 pub struct Lexer {
 	filename: String,
@@ -46,6 +47,13 @@ impl Lexer {
 	fn advance(&mut self) {
 		self.advance_position();
 		self.advance_char();
+	}
+
+	fn build_new_token(&mut self, typer: Tokens, pos_start: TokenPosition) -> Token {
+		let pos_end: TokenPosition = self.position.copy();
+		let token: Token = Token::new(typer, String::from(&self.filename), String::from(&self.current_linetext), pos_start, pos_end);
+		self.tokens.push(token.copy());
+		token
 	}
 
 	pub fn run(&mut self) -> bool {
