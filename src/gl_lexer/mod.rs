@@ -76,6 +76,9 @@ impl Lexer {
 	}
 
 	pub fn run(&mut self) -> bool {
+		if self.make_next_token() == true {
+			return true;
+		}
 		return false;
 	}
 }
