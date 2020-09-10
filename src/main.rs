@@ -3,7 +3,9 @@ use rustyline::Editor;
 mod gl_env;
 mod gl_exception;
 mod gl_lexer;
+mod gl_parser;
 mod gl_runtime;
+mod gl_statement;
 mod gl_token;
 mod gl_token_position;
 mod gl_tokens;
@@ -12,7 +14,7 @@ const GL_VERSION: &str = "0.1.0-alpha";
 
 fn main() {
 	let gl_args: Vec<String> = std::env::args().map(|arg| String::from(arg)).collect::<Vec<String>>();
-	let mut runtime = gl_runtime::RunTime::new();
+	let mut runtime = gl_runtime::RunTime::new(0);
 
 	if gl_args.len() == 1 {
 		show_version();
@@ -22,7 +24,8 @@ fn main() {
 		loop {
 			let codetext = sheel.readline(">>> ");
 			match codetext {
-				Ok(codetext) => {
+				Ok(mut codetext) => {
+					codetext.push('\n');
 					runtime.run_codetext("<stdin>".to_string(), codetext);
 				}
 				Err(ReadlineError::Interrupted) => {
