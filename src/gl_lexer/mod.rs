@@ -4,7 +4,6 @@ use crate::gl_tokens::{Tokens, SPACES};
 
 pub struct Lexer {
 	filename: String,
-	codetext: String,
 	chars: Vec<char>,
 	linestext: Vec<String>,
 	pub position: TokenPosition,
@@ -21,7 +20,7 @@ impl Lexer {
 		let current_char: String = if chars.len() > 0 { chars.remove(0).to_string() } else { String::new() };
 		let current_linetext: String = if linestext.len() > 0 { linestext.remove(0) } else { String::from(&codetext) };
 		let tokens: Vec<Token> = Vec::new();
-		Lexer { filename, codetext, chars, linestext, position, current_char, current_linetext, tokens }
+		Lexer { filename, chars, linestext, position, current_char, current_linetext, tokens }
 	}
 
 	fn advance_position(&mut self) {
