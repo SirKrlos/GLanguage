@@ -20,4 +20,8 @@ impl Parser {
 			self.current_tok = self.tokens.remove(0);
 		}
 	}
+
+	pub fn run(&mut self) -> bool {
+		return false;
+	}
 }
