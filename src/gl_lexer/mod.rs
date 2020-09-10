@@ -63,6 +63,18 @@ impl Lexer {
 		token.illegal_char();
 	}
 
+	fn make_next_token(&mut self) -> bool {
+		let pos_start: TokenPosition = self.position.copy();
+
+		if self.current_char.is_empty() {
+			self.build_new_token(Tokens::EOF, pos_start);
+			return false;
+		} else {
+			self.illegal_char();
+			return true;
+		}
+	}
+
 	pub fn run(&mut self) -> bool {
 		return false;
 	}
