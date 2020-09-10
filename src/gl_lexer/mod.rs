@@ -1,6 +1,6 @@
 use crate::gl_token::Token;
 use crate::gl_token_position::TokenPosition;
-use crate::gl_tokens::Tokens;
+use crate::gl_tokens::{Tokens, SPACES};
 
 pub struct Lexer {
 	filename: String,
@@ -86,10 +86,19 @@ impl Lexer {
 		if self.current_char.is_empty() {
 			self.build_new_token(Tokens::EOF, pos_start);
 			return false;
+		} else if SPACES.contains(&self.current_char.as_str()) {
+			if self.current_char == "\n" {
+				self.advance_linetext();
+				self.advance_char();
+			} else {
+				self.advance();
+			}
 		} else {
 			self.illegal_char();
 			return true;
 		}
+
+		return self.make_next_token();
 	}
 
 	pub fn run(&mut self) -> bool {
