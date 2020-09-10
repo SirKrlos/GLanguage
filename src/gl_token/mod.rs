@@ -1,3 +1,4 @@
+use crate::gl_exception::Exception;
 use crate::gl_token_position::TokenPosition;
 use crate::gl_tokens::Tokens;
 
@@ -16,5 +17,10 @@ impl Token {
 
 	pub fn copy(&self) -> Token {
 		Token::new(self.typer.copy(), String::from(&self.filename), String::from(&self.linetext), self.position_start.copy(), self.position_end.copy())
+	}
+
+	pub fn illegal_char(&self) {
+		let exception: Exception = Exception::new(self.copy());
+		exception.illegal_char();
 	}
 }
