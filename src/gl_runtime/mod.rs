@@ -1,4 +1,5 @@
 use crate::gl_lexer::Lexer;
+use crate::gl_parser::Parser;
 
 pub struct RunTime {}
 
@@ -12,6 +13,12 @@ impl RunTime {
 		if lexer.run() == true {
 			return true;
 		}
+
+		let mut parser: Parser = Parser::new(lexer.tokens);
+		if parser.run() == true {
+			return true;
+		}
+
 		return false;
 	}
 }
