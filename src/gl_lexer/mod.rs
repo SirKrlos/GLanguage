@@ -9,7 +9,7 @@ pub struct Lexer {
 	position: TokenPosition,
 	current_char: String,
 	current_linetext: String,
-	tokens: Vec<Token>,
+	pub tokens: Vec<Token>,
 }
 
 impl Lexer {
