@@ -35,13 +35,6 @@ impl Lexer {
 		} else {
 			self.current_char = String::new();
 		}
-
-		if self.current_char == "\n" {
-			self.position.lineno += 1;
-			if self.linestext.len() > 0 {
-				self.current_linetext = self.linestext.remove(0);
-			}
-		}
 	}
 
 	fn advance_linetext(&mut self) {
