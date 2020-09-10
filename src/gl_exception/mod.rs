@@ -28,7 +28,7 @@ impl Exception {
 		let pows: String = String::from("^");
 		let mut spaces_start: String = String::new();
 		let mut i: u32 = 0;
-		while i < (self.token.position_start.column - len_spaces_start) {
+		while self.token.position_start.column > len_spaces_start && i < (self.token.position_start.column - len_spaces_start) {
 			i += 1;
 			spaces_start += " ";
 		}
