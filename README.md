@@ -7,7 +7,7 @@ Language of script
 ## Components:
 - [x] RunTime
 - [x] Lexer
-- [ ] Parser
+- [x] Parser
 - [ ] Eval
 - [x] Env
 - [x] Exception 
@@ -18,4 +18,4 @@ Language of script
 - [x] Token
 - [x] Tokens
 - [x] TokenPosition
-- [ ] Statement
+- [x] Statement
