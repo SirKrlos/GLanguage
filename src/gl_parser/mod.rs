@@ -14,4 +14,10 @@ impl Parser {
 		let asts: Vec<Statement> = Vec::new();
 		Parser { tokens, current_tok, asts }
 	}
+
+	fn advance(&mut self) {
+		if self.tokens.len() > 0 {
+			self.current_tok = self.tokens.remove(0);
+		}
+	}
 }
