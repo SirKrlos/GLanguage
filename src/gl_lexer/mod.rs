@@ -64,6 +64,13 @@ impl Lexer {
 		token.illegal_char();
 	}
 
+	fn invalid_syntax(&mut self) {
+		let pos_start: TokenPosition = self.position.copy();
+		let token: Token = self.build_new_token(Tokens::EOF, pos_start);
+		self.advance_linetext();
+		token.invalid_syntax(String::new());
+	}
+
 	pub fn copy_tokens(&self) -> Vec<Token> {
 		let mut tokens: Vec<Token> = Vec::new();
 		for t in self.tokens.iter() {
