@@ -1,6 +1,6 @@
 use crate::gl_token::Token;
 use crate::gl_token_position::TokenPosition;
-use crate::gl_tokens::{Tokens, SPACES};
+use crate::gl_tokens::{is_token, Tokens, PUNCTUATIONS, SPACES};
 
 pub struct Lexer {
 	filename: String,
@@ -91,6 +91,11 @@ impl Lexer {
 				self.advance_char();
 			} else {
 				self.advance();
+			}
+		} else if PUNCTUATIONS.contains(&self.current_char.as_str()) {
+			if self.current_char == ";" {
+				self.advance();
+				self.build_new_token(Tokens::SEMICOLON, pos_start);
 			}
 		} else {
 			self.illegal_char();
