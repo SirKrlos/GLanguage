@@ -4,6 +4,10 @@ pub const DIGITS: &str = "0123456789";
 pub const LETTERS: &str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_";
 pub const LETTERS_DIGITS: &str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789";
 
+pub fn is_token(v: &str) -> bool {
+	return if SPACES.contains(&v) { true } else { false };
+}
+
 pub enum Tokens {
 	EOF,
 }
