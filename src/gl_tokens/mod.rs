@@ -11,6 +11,7 @@ pub fn is_token(v: &str) -> bool {
 pub enum Tokens {
 	EOF,
 	SEMICOLON,
+	INTEGER(String),
 }
 
 impl Tokens {
@@ -18,6 +19,7 @@ impl Tokens {
 		match &self {
 			Tokens::EOF => Tokens::EOF,
 			Tokens::SEMICOLON => Tokens::SEMICOLON,
+			Tokens::INTEGER(v) => Tokens::INTEGER(String::from(v)),
 		}
 	}
 }
