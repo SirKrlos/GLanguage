@@ -19,3 +19,6 @@ Language of script
 - [x] Tokens
 - [x] TokenPosition
 - [x] Statement
+
+## Character support:
+- Spaces and Special characters: ("\r", "\n", "\t", " ")
