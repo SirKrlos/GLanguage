@@ -10,12 +10,14 @@ pub fn is_token(v: &str) -> bool {
 
 pub enum Tokens {
 	EOF,
+	SEMICOLON,
 }
 
 impl Tokens {
 	pub fn copy(&self) -> Tokens {
 		match &self {
 			Tokens::EOF => Tokens::EOF,
+			Tokens::SEMICOLON => Tokens::SEMICOLON,
 		}
 	}
 }
