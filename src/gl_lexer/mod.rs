@@ -1,6 +1,6 @@
 use crate::gl_token::Token;
 use crate::gl_token_position::TokenPosition;
-use crate::gl_tokens::{is_token, Tokens, PUNCTUATIONS, SPACES};
+use crate::gl_tokens::{is_token, Tokens, DIGITS, PUNCTUATIONS, SPACES};
 
 pub struct Lexer {
 	filename: String,
@@ -92,6 +92,24 @@ impl Lexer {
 			} else {
 				self.advance();
 			}
+		} else if DIGITS.contains(&self.current_char.as_str()) {
+			let mut number_string = String::new();
+			while self.current_char.is_empty() == false && DIGITS.contains(&self.current_char.as_str()) {
+				number_string.push_str(&self.current_char.as_str());
+				self.advance();
+			}
+			if self.current_char.is_empty() == false
+				&& SPACES.contains(&self.current_char.as_str()) == false
+				&& PUNCTUATIONS.contains(&self.current_char.as_str()) == false
+			{
+				if is_token(&self.current_char.as_str()) {
+					self.invalid_syntax();
+				} else {
+					self.illegal_char();
+				}
+				return true;
+			}
+			self.build_new_token(Tokens::INTEGER(number_string), pos_start);
 		} else if PUNCTUATIONS.contains(&self.current_char.as_str()) {
 			if self.current_char == ";" {
 				self.advance();
