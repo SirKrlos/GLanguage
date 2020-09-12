@@ -23,6 +23,20 @@ impl Parser {
 	}
 
 	pub fn run(&mut self) -> bool {
+		loop {
+			match &self.current_tok.typer {
+				Tokens::EOF => break,
+				_ => self.parse_expression(),
+			}
+			match &self.current_tok.typer {
+				Tokens::SEMICOLON => (),
+				_ => {
+					self.current_tok.expected_char(String::from(";"));
+					return true;
+				}
+			}
+			self.advance();
+		}
 		return false;
 	}
 
