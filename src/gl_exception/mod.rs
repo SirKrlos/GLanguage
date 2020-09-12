@@ -51,4 +51,8 @@ impl Exception {
 		}
 		println!("{}", self.generate_exception_string(format!("SyntaxError: {}", details)));
 	}
+
+	pub fn expected_char(&self, character: String) {
+		println!("{}", self.generate_exception_string(format!("SyntaxError: Expected Character '{}'", character)));
+	}
 }
