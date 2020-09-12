@@ -13,7 +13,7 @@ Language of script
 - [x] Exception 
   - [x] IllegalChar
   - [x] InvalidSyntax
-  - [ ] ExpectedChar
+  - [x] ExpectedChar
   - [ ] RunTime
 - [x] Token
 - [x] Tokens
