@@ -28,4 +28,9 @@ impl Token {
 		let exception: Exception = Exception::new(self.copy());
 		exception.invalid_syntax(details);
 	}
+
+	pub fn expected_char(&self, character: String) {
+		let exception: Exception = Exception::new(self.copy());
+		exception.expected_char(character);
+	}
 }
