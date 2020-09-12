@@ -8,7 +8,7 @@ Language of script
 - [x] RunTime
 - [x] Lexer
 - [x] Parser
-- [ ] Eval
+- [x] Eval
 - [x] Env
 - [x] Exception 
   - [x] IllegalChar
