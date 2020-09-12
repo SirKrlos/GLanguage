@@ -22,3 +22,4 @@ Language of script
 
 ## Character support:
 - Spaces and Special characters: ("\r", "\n", "\t", " ")
+- Digits: (0,1,2,3,4,5,6,7,8,9)
