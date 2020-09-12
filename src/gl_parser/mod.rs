@@ -1,5 +1,6 @@
-use crate::gl_statement::Statement;
+use crate::gl_statement::{Expression, Statement, ValueWithToken};
 use crate::gl_token::Token;
+use crate::gl_tokens::Tokens;
 
 pub struct Parser {
 	tokens: Vec<Token>,
@@ -23,5 +24,17 @@ impl Parser {
 
 	pub fn run(&mut self) -> bool {
 		return false;
+	}
+
+	fn parse_expression(&mut self) {
+		let expression = match &self.current_tok.typer {
+			Tokens::INTEGER(v) => Expression::Integer(ValueWithToken { value: String::from(v), token: self.current_tok.copy() }),
+			_ => {
+				self.current_tok.invalid_syntax(String::new());
+				return;
+			}
+		};
+		self.advance();
+		self.asts.push(Statement::Expression(expression));
 	}
 }
