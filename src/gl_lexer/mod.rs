@@ -83,7 +83,11 @@ impl Lexer {
 		let pos_start: TokenPosition = self.position.copy();
 
 		if self.current_char.is_empty() {
-			self.build_new_token(Tokens::EOF, pos_start);
+			if self.tokens.len() > 0 {
+				self.build_new_token(Tokens::EOF, self.tokens[self.tokens.len() - 1].position_end.copy());
+			} else {
+				self.build_new_token(Tokens::EOF, pos_start);
+			}
 			return false;
 		} else if SPACES.contains(&self.current_char.as_str()) {
 			if self.current_char == "\n" {
