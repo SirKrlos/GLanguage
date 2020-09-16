@@ -1,5 +1,6 @@
 mod gl_std_integer;
 pub use gl_std_integer::GLInteger;
+use crate::gl_env::Env;
 
 pub enum Object {
 	Null,
@@ -25,4 +26,8 @@ impl std::fmt::Display for Object {
 			Object::String(string) => write!(f, "{}", &string.to_string()),
 		}
 	}
+}
+
+pub fn load_std_to_env(env: &mut Env) {
+	env.set(&String::from("Null"), Object::Null);
 }
