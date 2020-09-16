@@ -22,6 +22,7 @@ Language of script
 - [ ] Std
   - [ ] Integer
   - [ ] String
+- [ ] Object
 
 ## Character support:
 - Spaces and Special characters: ("\r", "\n", "\t", " ")
