@@ -33,4 +33,9 @@ impl Token {
 		let exception: Exception = Exception::new(self.copy());
 		exception.expected_char(character);
 	}
+
+	pub fn run_time(&self, error_details: String) {
+		let exception: Exception = Exception::new(self.copy());
+		exception.run_time(error_details);
+	}
 }
