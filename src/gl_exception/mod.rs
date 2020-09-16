@@ -1,5 +1,4 @@
 use crate::gl_token::Token;
-use crate::gl_token_position::TokenPosition;
 
 pub struct Exception {
 	pub token: Token,
@@ -54,5 +53,25 @@ impl Exception {
 
 	pub fn expected_char(&self, character: String) {
 		println!("{}", self.generate_exception_string(format!("SyntaxError: Expected Character '{}'", character)));
+	}
+
+	pub fn run_time(&self, error_details: String) {
+		let mut linetext = String::from(&self.token.linetext);
+		linetext = linetext.replace("\t", " ");
+		linetext = linetext.trim_start().to_string();
+
+		if linetext.ends_with("\n") {
+			linetext.remove(linetext.len() - 1);
+		}
+		if linetext.ends_with("\r") {
+			linetext.remove(linetext.len() - 1);
+		}
+
+		linetext = linetext.trim_end().to_string();
+		let mut result: String = String::from("Traceback (most recent call last):\n");
+		result.push_str(format!("  File \"{}\", line {}, in <module>\n", self.token.filename, self.token.position_start.lineno + 1).as_str());
+		result.push_str(format!("    {}\n", linetext).as_str());
+		result.push_str(error_details.as_str());
+		println!("{}", result);
 	}
 }
