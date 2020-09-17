@@ -47,4 +47,18 @@ impl Eval {
 			Statement::Expression(expr) => self.eval_expression(expr, env),
 		}
 	}
+
+	fn eval_statements(&self, statements: Vec<Statement>, env: &mut Env) -> Vec<Object> {
+		let mut result: Vec<Object> = Vec::new();
+
+		for statement in statements {
+			let (r, error) = self.eval_statement(statement, env);
+			if error {
+				result.push(Object::Null);
+				break;
+			}
+			result.push(r);
+		}
+		result
+	}
 }
