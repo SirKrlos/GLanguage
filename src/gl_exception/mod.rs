@@ -55,8 +55,8 @@ impl Exception {
 		println!("{}", self.generate_exception_string(format!("SyntaxError: Expected Character '{}'", character)));
 	}
 
-	pub fn run_time(&self, error_details: String) {
-		let mut linetext = String::from(&self.token.linetext);
+	pub fn run_time(filename: String, lineno: u32, linetext_token: String, error_details: String) {
+		let mut linetext = String::from(&linetext_token);
 		linetext = linetext.replace("\t", " ");
 		linetext = linetext.trim_start().to_string();
 
@@ -69,7 +69,7 @@ impl Exception {
 
 		linetext = linetext.trim_end().to_string();
 		let mut result: String = String::from("Traceback (most recent call last):\n");
-		result.push_str(format!("  File \"{}\", line {}, in <module>\n", self.token.filename, self.token.position_start.lineno + 1).as_str());
+		result.push_str(format!("  File \"{}\", line {}, in <module>\n", filename, lineno + 1).as_str());
 		result.push_str(format!("    {}\n", linetext).as_str());
 		result.push_str(error_details.as_str());
 		println!("{}", result);
