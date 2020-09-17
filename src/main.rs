@@ -1,11 +1,14 @@
 use rustyline::error::ReadlineError;
 use rustyline::Editor;
+mod gl_ast;
 mod gl_env;
+mod gl_eval;
 mod gl_exception;
 mod gl_lexer;
 mod gl_parser;
 mod gl_runtime;
 mod gl_statement;
+mod gl_std;
 mod gl_token;
 mod gl_token_position;
 mod gl_tokens;
@@ -20,11 +23,13 @@ fn main() {
 		show_version();
 		println!("exit using Ctrl+D");
 		let mut sheel = Editor::<()>::new();
+		if let Err(_) = sheel.load_history(".glanguage.history") {}
 
 		loop {
 			let codetext = sheel.readline(">>> ");
 			match codetext {
 				Ok(mut codetext) => {
+					sheel.add_history_entry(&codetext);
 					codetext.push('\n');
 					runtime.run_codetext("<stdin>".to_string(), codetext);
 				}
@@ -35,6 +40,7 @@ fn main() {
 				Err(_err) => break,
 			}
 		}
+		sheel.save_history(".glanguage.history").unwrap();
 	} else {
 		let gl_flags = if gl_args.len() == 2 { &gl_args[2..gl_args.len()] } else { &gl_args[3..gl_args.len()] };
 
