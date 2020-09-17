@@ -1,4 +1,5 @@
-use crate::gl_statement::{Expression, Statement, ValueWithToken};
+use crate::gl_ast::Ast;
+use crate::gl_statement::{Expression, Statement};
 use crate::gl_token::Token;
 use crate::gl_tokens::Tokens;
 
@@ -22,33 +23,69 @@ impl Parser {
 		}
 	}
 
-	pub fn run(&mut self) -> bool {
-		loop {
-			match &self.current_tok.typer {
-				Tokens::EOF => break,
-				_ => self.parse_expression(),
-			}
-			match &self.current_tok.typer {
-				Tokens::SEMICOLON => (),
-				_ => {
-					self.current_tok.expected_char(String::from(";"));
-					return true;
-				}
-			}
-			self.advance();
-		}
-		return false;
+	fn build_new_ast(&self, value: String) -> Ast {
+		Ast::new(String::from(value), String::from(&self.current_tok.filename), self.current_tok.position_start.lineno, String::from(&self.current_tok.linetext))
 	}
 
-	fn parse_expression(&mut self) {
-		let expression = match &self.current_tok.typer {
-			Tokens::INTEGER(v) => Expression::Integer(ValueWithToken { value: String::from(v), token: self.current_tok.copy() }),
+	fn parse_expression(&mut self) -> (Expression, bool) {
+		let expression = match self.current_tok.typer.copy() {
+			Tokens::INTEGER(v) => {
+				self.advance();
+				Expression::Integer(self.build_new_ast(v))
+			}
+			Tokens::STRING(v) => {
+				self.advance();
+				Expression::String(self.build_new_ast(v))
+			}
+			Tokens::IDENTIFIER(v) => {
+				self.advance();
+				Expression::Identifier(self.build_new_ast(v))
+			}
 			_ => {
 				self.current_tok.invalid_syntax(String::new());
-				return;
+				return (Expression::NULL, true);
 			}
 		};
-		self.advance();
-		self.asts.push(Statement::Expression(expression));
+		(expression, false)
+	}
+
+	fn parser_statement(&mut self) -> (Statement, bool) {
+		let statement = match self.current_tok.typer.copy() {
+			Tokens::EOF => (Statement::NULL),
+			_ => {
+				let (expr, error) = self.parse_expression();
+				if error {
+					return (Statement::NULL, true);
+				}
+				Statement::Expression(expr)
+			}
+		};
+
+		match self.current_tok.typer.copy() {
+			Tokens::SEMICOLON => {
+				self.advance();
+			}
+			_ => {
+				self.current_tok.expected_char(String::from(";"));
+				return (Statement::NULL, true);
+			}
+		}
+		return (statement, false);
+	}
+
+	pub fn run(&mut self) -> bool {
+		loop {
+			match self.current_tok.typer.copy() {
+				Tokens::EOF => break,
+				_ => {
+					let (statement, error) = self.parser_statement();
+					if error {
+						return true;
+					}
+					self.asts.push(statement);
+				}
+			}
+		}
+		return false;
 	}
 }
