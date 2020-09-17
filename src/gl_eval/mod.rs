@@ -61,4 +61,8 @@ impl Eval {
 		}
 		result
 	}
+
+	pub fn eval_return_scope(&self, statements: Vec<Statement>, env: &mut Env) -> Vec<Object> {
+		self.eval_statements(statements, env)
+	}
 }
