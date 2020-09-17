@@ -6,6 +6,10 @@ pub struct Ast {
 }
 
 impl Ast {
+	pub fn new(value: String, filename: String, lineno: u32, linetext: String) -> Ast {
+		Ast { value, filename, lineno, linetext }
+	}
+
 	pub fn copy(&self) -> Ast {
 		let value: String = String::from(&self.value);
 		let filename: String = String::from(&self.filename);
