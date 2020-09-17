@@ -19,11 +19,11 @@ Language of script
 - [x] Tokens
 - [x] TokenPosition
 - [x] Statement
-- [ ] Std
-  - [ ] Integer
-  - [ ] String
-- [ ] Object
-- [ ] Ast
+- [x] Std
+  - [x] Integer
+  - [x] String
+- [x] Object
+- [x] Ast
 
 ## Character support:
 - Spaces and Special characters: ("\r", "\n", "\t", " ")
