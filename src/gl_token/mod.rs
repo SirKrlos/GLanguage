@@ -35,7 +35,6 @@ impl Token {
 	}
 
 	pub fn run_time(&self, error_details: String) {
-		let exception: Exception = Exception::new(self.copy());
-		exception.run_time(error_details);
+		Exception::run_time(String::from(&self.filename), self.position_start.lineno, String::from(&self.linetext), error_details);
 	}
 }
