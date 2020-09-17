@@ -40,4 +40,11 @@ impl Eval {
 			}
 		}
 	}
+
+	fn eval_statement(&self, statement: Statement, env: &mut Env) -> (Object, bool) {
+		match statement {
+			Statement::NULL => (Object::Null, false),
+			Statement::Expression(expr) => self.eval_expression(expr, env),
+		}
+	}
 }
