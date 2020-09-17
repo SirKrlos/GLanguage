@@ -1,6 +1,6 @@
 use crate::gl_token::Token;
 use crate::gl_token_position::TokenPosition;
-use crate::gl_tokens::{is_token, Tokens, DIGITS, PUNCTUATIONS, SPACES};
+use crate::gl_tokens::{is_token, Tokens, DIGITS, LETTERS, LETTERS_DIGITS, PUNCTUATIONS, SPACES};
 
 pub struct Lexer {
 	filename: String,
@@ -114,11 +114,83 @@ impl Lexer {
 				return true;
 			}
 			self.build_new_token(Tokens::INTEGER(number_string), pos_start);
+		} else if LETTERS.contains(&self.current_char.as_str()) {
+			let mut identifier_string = String::new();
+			while self.current_char.is_empty() == false && LETTERS_DIGITS.contains(&self.current_char.as_str()) {
+				identifier_string.push_str(&self.current_char.as_str());
+				self.advance();
+			}
+			if self.current_char.is_empty() == false
+				&& SPACES.contains(&self.current_char.as_str()) == false
+				&& PUNCTUATIONS.contains(&self.current_char.as_str()) == false
+			{
+				if is_token(&self.current_char.as_str()) {
+					self.invalid_syntax();
+				} else {
+					self.illegal_char();
+				}
+				return true;
+			}
+			self.build_new_token(Tokens::IDENTIFIER(identifier_string), pos_start);
 		} else if PUNCTUATIONS.contains(&self.current_char.as_str()) {
 			if self.current_char == ";" {
 				self.advance();
 				self.build_new_token(Tokens::SEMICOLON, pos_start);
+			} else if self.current_char == "(" {
+				self.advance();
+				self.build_new_token(Tokens::LPAREN, pos_start);
+			} else if self.current_char == ")" {
+				self.advance();
+				self.build_new_token(Tokens::RPAREN, pos_start);
+			} else if self.current_char == "," {
+				self.advance();
+				self.build_new_token(Tokens::COMMA, pos_start);
+			} else if self.current_char == "{" {
+				self.advance();
+				self.build_new_token(Tokens::LBRACE, pos_start);
+			} else if self.current_char == "}" {
+				self.advance();
+				self.build_new_token(Tokens::RBRACE, pos_start);
 			}
+		} else if self.current_char == "\"" {
+			let mut literal_string: String = String::new();
+			let mut escape_character: bool = false;
+			self.advance();
+			while self.current_char.is_empty() == false && (self.current_char != "\"" || escape_character == true) {
+				if escape_character == true {
+					if self.current_char == "n" {
+						literal_string += "\n";
+					} else {
+						literal_string += self.current_char.as_str();
+						escape_character = false;
+					}
+				} else {
+					if self.current_char == "\\" {
+						escape_character = true;
+					} else {
+						literal_string += self.current_char.as_str();
+					}
+				}
+				self.advance();
+			}
+
+			if self.current_char != "\"" {
+				self.invalid_syntax();
+				return true;
+			}
+			self.advance();
+			if self.current_char.is_empty() == false
+				&& SPACES.contains(&self.current_char.as_str()) == false
+				&& PUNCTUATIONS.contains(&self.current_char.as_str()) == false
+			{
+				if is_token(&self.current_char.as_str()) {
+					self.invalid_syntax();
+				} else {
+					self.illegal_char();
+				}
+				return true;
+			}
+			self.build_new_token(Tokens::STRING(literal_string), pos_start.copy());
 		} else {
 			self.illegal_char();
 			return true;
